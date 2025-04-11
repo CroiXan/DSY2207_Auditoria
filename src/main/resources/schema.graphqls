@@ -1,0 +1,69 @@
+type AudUsuario {
+  idAuditoria: ID
+  idUsuarioAfectado: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  detalleCambios: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type AudRol {
+  idAuditoria: ID
+  idRolAfectado: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  detalleCambios: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type AudUsuarioRol {
+  idAuditoria: ID
+  idUsuario: Int
+  idRol: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type Query {
+  listarAudUsuarios: [AudUsuario]
+  listarAudRoles: [AudRol]
+  listarAudUsuariosRoles: [AudUsuarioRol]
+
+  buscarAudUsuarioPorId(idAuditoria: ID!): AudUsuario
+  buscarAudRolPorId(idAuditoria: ID!): AudRol
+  buscarAudUsuarioRolPorId(idAuditoria: ID!): AudUsuarioRol
+}
+
+type Mutation {
+  insertarAudUsuario(
+    idUsuarioAfectado: Int,
+    idUsuarioEjecutor: Int,
+    accion: String,
+    detalleCambios: String,
+    ipOrigen: String
+  ): AudUsuario
+
+  insertarAudRol(
+    idRolAfectado: Int,
+    idUsuarioEjecutor: Int,
+    accion: String,
+    detalleCambios: String,
+    ipOrigen: String
+  ): AudRol
+
+  insertarAudUsuarioRol(
+    idUsuario: Int,
+    idRol: Int,
+    idUsuarioEjecutor: Int,
+    accion: String,
+    ipOrigen: String
+  ): AudUsuarioRol
+
+  eliminarAudUsuario(idAuditoria: ID!): Boolean
+  eliminarAudRol(idAuditoria: ID!): Boolean
+  eliminarAudUsuarioRol(idAuditoria: ID!): Boolean
+}

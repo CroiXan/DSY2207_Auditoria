@@ -2,6 +2,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "OracleJDBCConnectionTest",
+            "request": "launch",
+            "mainClass": "com.grupo8.audit.OracleJDBCConnectionTest",
+            "projectName": "DSY2207_Auditoria"
+        },
+        {
             "name": "Attach to Java Functions",
             "type": "java",
             "request": "attach",
