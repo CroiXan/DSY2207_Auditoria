@@ -38,13 +38,13 @@ public class AudUsuarioFunction {
         graphQL = GraphQL.newGraphQL(schema).build();
     }
 
-    @FunctionName("graphql")
+    @FunctionName("auditoria")
     public HttpResponseMessage run(
         @HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS)
         HttpRequestMessage<Optional<String>> request,
         ExecutionContext context
     ) {
-        context.getLogger().info("🔍 Ejecutando función GraphQL...");
+        context.getLogger().info("Ejecutando función GraphQL...");
 
         try {
             String body = request.getBody().orElse("");
