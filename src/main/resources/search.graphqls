@@ -1,0 +1,43 @@
+type AudUsuario {
+  idAuditoria: ID
+  idUsuarioAfectado: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  detalleCambios: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type AudRol {
+  idAuditoria: ID
+  idRolAfectado: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  detalleCambios: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type AudUsuarioRol {
+  idAuditoria: ID
+  idUsuario: Int
+  idRol: Int
+  idUsuarioEjecutor: Int
+  accion: String
+  fechaCambio: String
+  ipOrigen: String
+}
+
+type AuditoriaBusqueda {
+  audUsuarios: [AudUsuario]
+  audRoles: [AudRol]
+  audUsuariosRoles: [AudUsuarioRol]
+}
+
+type Query {
+  buscarAuditoria(
+    tabla: String
+    idUsuario: Int
+    accion: String
+  ): AuditoriaBusqueda
+}

@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class OracleConnectionUtil {
 
     public static Connection getConnection() throws Exception {
-        String walletPath = "/home/site/wwwroot/wallet";
+        String walletPath = "C:/Wallet_PB06O46XMPFJU1B9";//"/home/site/wwwroot/wallet";
         
         System.setProperty("oracle.net.tns_admin", walletPath);
         System.setProperty("oracle.net.ssl_server_dn_match", "true");

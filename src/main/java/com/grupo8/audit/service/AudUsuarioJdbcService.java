@@ -74,4 +74,44 @@ public class AudUsuarioJdbcService {
             return null;
         }
     }
+
+    public List<Map<String, Object>> buscarPorFiltro(Integer idUsuario, String accion) throws Exception {
+        StringBuilder sql = new StringBuilder("SELECT * FROM AUD_USUARIOS WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+    
+        if (idUsuario != null) {
+            sql.append(" AND ID_USUARIO_AFECTADO = ?");
+            params.add(idUsuario);
+        }
+    
+        if (accion != null && !accion.isEmpty()) {
+            sql.append(" AND ACCION = ?");
+            params.add(accion);
+        }
+    
+        try (Connection conn = OracleConnectionUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+    
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+    
+            ResultSet rs = stmt.executeQuery();
+            List<Map<String, Object>> resultados = new ArrayList<>();
+    
+            while (rs.next()) {
+                Map<String, Object> fila = new HashMap<>();
+                fila.put("idAuditoria", rs.getLong("ID_AUDITORIA"));
+                fila.put("idUsuarioAfectado", rs.getInt("ID_USUARIO_AFECTADO"));
+                fila.put("accion", rs.getString("ACCION"));
+                fila.put("detalleCambios", rs.getString("DETALLE_CAMBIOS"));
+                fila.put("fechaCambio", rs.getTimestamp("FECHA_CAMBIO").toString());
+                fila.put("ipOrigen", rs.getString("IP_ORIGEN"));
+                resultados.add(fila);
+            }
+    
+            return resultados;
+        }
+    }
+    
 }
