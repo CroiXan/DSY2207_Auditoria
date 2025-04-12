@@ -61,7 +61,7 @@ public class SearchAuditFunction {
             HttpRequestMessage<Optional<String>> request,
             ExecutionContext context
     ) {
-        context.getLogger().info("🔎 Ejecutando función GraphQL de búsqueda...");
+        context.getLogger().info("Ejecutando función GraphQL de búsqueda...");
 
         try {
             String body = request.getBody().orElse("");
