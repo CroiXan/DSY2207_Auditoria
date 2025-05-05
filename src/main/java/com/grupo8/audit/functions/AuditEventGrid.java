@@ -1,6 +1,7 @@
 package com.grupo8.audit.functions;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import com.azure.core.credential.AzureKeyCredential;
 import com.azure.core.util.BinaryData;
@@ -51,7 +52,7 @@ public class AuditEventGrid {
                     .credential(new AzureKeyCredential(eventGridKey))
                     .buildEventGridEventPublisherClient();
 
-            EventGridEvent event = new EventGridEvent("/UserAudit/save",
+            EventGridEvent event = new EventGridEvent("/UserAudit/save/"+request.getBody().get().getAccion()+request.getBody().get().getIdUsuarioAfectado()+request.getBody().get().getIdUsuarioEjecutor()+UUID.randomUUID().toString(),
                     "User.auditsave", BinaryData.fromObject(request.getBody().get()),
                     "1.0");
 
@@ -80,7 +81,7 @@ public class AuditEventGrid {
                     .credential(new AzureKeyCredential(eventGridKey))
                     .buildEventGridEventPublisherClient();
 
-            EventGridEvent event = new EventGridEvent("/RoleAudit/save",
+            EventGridEvent event = new EventGridEvent("/RoleAudit/save/"+request.getBody().get().getAccion()+request.getBody().get().getIdRolAfectado()+request.getBody().get().getIdUsuarioEjecutor()+UUID.randomUUID().toString(),
                     "Role.auditsave", BinaryData.fromObject(request.getBody().get()),
                     "1.0");
 
@@ -109,7 +110,7 @@ public class AuditEventGrid {
                     .credential(new AzureKeyCredential(eventGridKey))
                     .buildEventGridEventPublisherClient();
 
-            EventGridEvent event = new EventGridEvent("/UserRoleAudit/save",
+            EventGridEvent event = new EventGridEvent("/UserRoleAudit/save/"+request.getBody().get().getAccion()+request.getBody().get().getIdUsuario()+request.getBody().get().getIdUsuarioEjecutor()+UUID.randomUUID().toString(),
                     "UserRole.auditsave", BinaryData.fromObject(request.getBody().get()),
                     "1.0");
 
